@@ -4,7 +4,7 @@
 [credential]
     helper = manager
 [core]
-	editor = \"C:/Program Files/Notepad++/notepad++.exe\" -multiInst -nosession
+	editor = \"C:/Program Files (x86)/Notepad++/notepad++.exe\" -multiInst -nosession
 [diff]
 	tool = bc3
 [difftool]
@@ -71,7 +71,7 @@
     # show a tree with all branches
     tree = log --graph --decorate --oneline
 	
-    # show a tree with current branch (with user)
+    # show a tree with all branches
     lg = log --decorate --oneline --pretty=format:'%C(Yellow)%h %Cgreen%aN %Creset%s %C(auto)%d'
 
 	# show all branch situation
@@ -110,7 +110,7 @@
         | sort -n \
         | tail -n3 \
         ;}; f"
-	
+		
 	# Fetch, change branch on Wingesfar_beta and pull, then first support and pull, then second support and finally come back on the original branch
         #&& git f && git wb && git pull && git s1 && git pull && git s2 && git pull \
  	pall = "!f(){ \
@@ -134,3 +134,8 @@
 	
 	# Diff view only name of file changed between this and another branch/hash/tag
 	dino = diff --name-only
+
+	# Aggiunge ad un file "assume-unchanged" i file unstaged per essere ignorati
+	tmpignore = "!f() { git status --porcelain=v1 | while read stat name; do git update-index --skip-worktree $name; echo $name >> assume-unchanged; done }; f"
+	no-tmpignore = "!f() { (cat assume-unchanged && rm assume-unchanged) | while read name; do git update-index --no-skip-worktree $name; done }; f"
+	
